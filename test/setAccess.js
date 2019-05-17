@@ -28,18 +28,18 @@ const expected = {
   }],
 };
 
-describe('set Access', () => { // eslint-disable-line no-undef, max-lines-per-function
+describe('set List', () => { // eslint-disable-line no-undef, max-lines-per-function
 
   it('parse all entries', (done) => { // eslint-disable-line no-undef
     main.flushAccessList();
-    const list = main.setAccess(input);
+    const list = main.setAccessList(input);
     assert.deepEqual(list, expected);
     done();
   });
 
   it('input has empty role', (done) => { // eslint-disable-line no-undef
     main.flushAccessList();
-    const list = main.setAccess({});
+    const list = main.setAccessList({});
     assert.deepEqual(list, {});
     done();
   });
@@ -48,7 +48,7 @@ describe('set Access', () => { // eslint-disable-line no-undef, max-lines-per-fu
     main.flushAccessList();
     input.b = undefined;
     delete expected.b;
-    const list = main.setAccess(input);
+    const list = main.setAccessList(input);
     assert.deepEqual(list, expected);
     done();
   });

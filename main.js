@@ -1,24 +1,24 @@
-let access;
+let list;
 let roles;
 const config = require('./config');
 
 const getAccessList = () => {
-  return access;
+  return list;
 };
 
 const flushAccessList = () => {
-  access = undefined;
+  list = undefined;
 };
 
 
 const init = () => {
-  if (access) return;
-  setAccess(config);
+  if (list) return;
+  setAccessList(config);
 };
 
-const setAccess = (input) => {
+const setAccessList = (input) => {
   input = input || {};
-  access = access || {};
+  list = list || {};
   roles = Object.keys(input);
   for (let i = 0; i < roles.length; i++) {
     const role = roles[i];
@@ -27,7 +27,15 @@ const setAccess = (input) => {
       parseEntry(role, array[j]);
     }
   }
-  return access;
+  return list;
+};
+
+
+// //// Has Access
+
+
+const hasAccess = (userId, url, verb) => {
+
 };
 
 // GET ROLE
@@ -54,7 +62,7 @@ const buildRegex = (input) => {
 };
 
 const roleHasURL = (role, url) => {
-  const array = access[role] || [];
+  const array = list[role] || [];
   for (let i = 0; i < array.length; i++) {
     if (urlMatches(array[i].path, url)) return true;
   }
@@ -73,9 +81,9 @@ const urlMatches = (comparison, url) => {
 // //////////PARSE ENTRY
 
 const parseEntry = (role, entry) => {
-  if (!access) access = {};
-  if (!access[role]) access[role] = [];
-  access[role].push({
+  if (!list) list = {};
+  if (!list[role]) list[role] = [];
+  list[role].push({
     path: pathFromEntry(entry),
     verb: verbFromEntry(entry),
     filter: filterFromEntry(entry),
