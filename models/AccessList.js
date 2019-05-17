@@ -21,7 +21,8 @@ const setAccessList = (input) => {
   roles = Object.keys(input);
   for (let i = 0; i < roles.length; i++) {
     const role = roles[i];
-    const array = input[role] || [];
+    let array = input[role] || [];
+    array = Array.isArray(array) ? array : [array];
     for (let j = 0; j < array.length; j++) {
       parseEntry(role, array[j]);
     }

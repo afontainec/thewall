@@ -26,12 +26,12 @@ describe('AccessList.find', () => { // eslint-disable-line no-undef, max-lines-p
   });
 
   it('Happy path', (done) => { // eslint-disable-line no-undef
+    AccessList.flush();
     AccessList.setAccessList({
       role: ['other', ['/path/to', undefined, 'put'], '/path/to'],
       other: '/*',
       no: '/no/no',
     });
-    console.log(AccessList.get());
     const access = AccessList.find('/path/to', 'get');
     assert.deepEqual(access, expected);
     done();

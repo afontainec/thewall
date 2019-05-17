@@ -53,5 +53,20 @@ describe('set List', () => { // eslint-disable-line no-undef, max-lines-per-func
     done();
   });
 
+  it('input is not an array', (done) => { // eslint-disable-line no-undef
+    AccessList.flush();
+    const list = AccessList.setAccessList({
+      other: '/*',
+    });
+    assert.deepEqual(list, {
+      other: [{
+        path: '/*',
+        verb: 'get',
+        filter: undefined,
+      }],
+    });
+    done();
+  });
+
 
 });
