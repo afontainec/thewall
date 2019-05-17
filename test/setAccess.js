@@ -1,7 +1,7 @@
 process.env.NODE_ENV = 'test';
 
 const { assert } = require('chai');
-const main = require('../main');
+const AccessList = require('../models/AccessList');
 
 const input = {
   a: [['/a/:a', 'a', 'get'], 'a/:a/b'],
@@ -31,24 +31,24 @@ const expected = {
 describe('set List', () => { // eslint-disable-line no-undef, max-lines-per-function
 
   it('parse all entries', (done) => { // eslint-disable-line no-undef
-    main.flushAccessList();
-    const list = main.setAccessList(input);
+    AccessList.flush();
+    const list = AccessList.setAccessList(input);
     assert.deepEqual(list, expected);
     done();
   });
 
   it('input has empty role', (done) => { // eslint-disable-line no-undef
-    main.flushAccessList();
-    const list = main.setAccessList({});
+    AccessList.flush();
+    const list = AccessList.setAccessList({});
     assert.deepEqual(list, {});
     done();
   });
 
   it('input is undefined', (done) => { // eslint-disable-line no-undef
-    main.flushAccessList();
+    AccessList.flush();
     input.b = undefined;
     delete expected.b;
-    const list = main.setAccessList(input);
+    const list = AccessList.setAccessList(input);
     assert.deepEqual(list, expected);
     done();
   });

@@ -1,19 +1,18 @@
 let list;
 let roles;
-const config = require('./config');
 
-const getAccessList = () => {
+const get = () => {
   return list;
 };
 
-const flushAccessList = () => {
+const flush = () => {
   list = undefined;
 };
 
 
-const init = () => {
+const init = (input) => {
   if (list) return;
-  setAccessList(config);
+  setAccessList(input);
 };
 
 const setAccessList = (input) => {
@@ -30,23 +29,29 @@ const setAccessList = (input) => {
   return list;
 };
 
+// //////////FIND
 
-// //// Has Access
-
-
-const hasAccess = (userId, url, verb) => {
-
-};
-
-// GET ROLE
-
-const extractRoles = (url, verb) => {
-  const presentIn = [];
-  for (let i = 0; i < roles.length; i++) {
-    if (roleHasURL(roles[i], url, verb)) presentIn.push(roles[i]);
+const findInRole = (role, url, verb) => {
+  if (!list || !list[role]) return null;
+  const array = list[role];
+  for (let i = 0; i < array.length; i++) {
+    const urlIsCorrect = urlMatches(array[i].path, url);
+    if (urlIsCorrect && verb === array[i].path) return array[i];
   }
-  return presentIn;
+  return null;
 };
+
+const find = (url, verb) => {
+  if (!list) return {};
+  const results = {};
+  for (let i = 0; i < roles.length; i++) {
+    const inRole = findInRole(roles[i], url, verb);
+    if (inRole) results[roles[i]] = inRole;
+  }
+  return {};
+};
+
+// /////////URL MATCHES
 
 const buildRegex = (input) => {
   if (!input) return null;
@@ -61,14 +66,6 @@ const buildRegex = (input) => {
   return comp;
 };
 
-const roleHasURL = (role, url, verb) => {
-  const array = list[role] || [];
-  for (let i = 0; i < array.length; i++) {
-    if (urlMatches(array[i].path, url) && verb === array[i].verb) return true;
-  }
-  return false;
-};
-
 const urlMatches = (comparison, url) => {
   const compare = buildRegex(comparison);
   if (!compare) return false;
@@ -76,7 +73,6 @@ const urlMatches = (comparison, url) => {
   url = url.endsWith('/') ? url : `${url}/`;
   return tester.test(url);
 };
-
 
 // //////////PARSE ENTRY
 
@@ -106,23 +102,18 @@ const verbFromEntry = (entry) => {
   return entry[2];
 };
 
-
 if (process.env.NODE_ENV === 'test') {
   module.exports = {
     buildRegex,
-    extractRoles,
     init,
     filterFromEntry,
-    flushAccessList,
-    getAccessList,
+    flush,
+    get,
     pathFromEntry,
     parseEntry,
-    roleHasURL,
-    urlMatches,
     setAccessList,
+    urlMatches,
     verbFromEntry,
 
   };
-} else {
-  init();
 }
