@@ -33,10 +33,10 @@ const setAccessList = (input) => {
 
 const findInRole = (role, url, verb) => {
   if (!list || !list[role]) return null;
-  const array = list[role];
+  const array = list[role] || [];
   for (let i = 0; i < array.length; i++) {
     const urlIsCorrect = urlMatches(array[i].path, url);
-    if (urlIsCorrect && verb === array[i].path) return array[i];
+    if (urlIsCorrect && verb === array[i].verb) return array[i];
   }
   return null;
 };
@@ -107,6 +107,8 @@ if (process.env.NODE_ENV === 'test') {
     buildRegex,
     init,
     filterFromEntry,
+    findInRole,
+    find,
     flush,
     get,
     pathFromEntry,
