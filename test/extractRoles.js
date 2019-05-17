@@ -8,7 +8,7 @@ describe('extractRoles', () => { // eslint-disable-line no-undef, max-lines-per-
 
   before(() => { // eslint-disable-line no-undef
     main.flushAccessList();
-    main.setAccess({
+    main.setAccessList({
       role: ['/other', '/path/to/yes'],
       other: ['/path/to/*'],
       no: ['/path/to/no'],

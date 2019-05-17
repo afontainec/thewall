@@ -119,7 +119,7 @@ if (process.env.NODE_ENV === 'test') {
     parseEntry,
     roleHasURL,
     urlMatches,
-    setAccess,
+    setAccessList,
     verbFromEntry,
 
   };
