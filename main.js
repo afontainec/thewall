@@ -1,9 +1,6 @@
 let access;
+let roles;
 const config = require('./config');
-//
-// const extractRoles = (url) => {
-//
-// };
 
 const getAccessList = () => {
   return access;
@@ -22,7 +19,7 @@ const init = () => {
 const setAccess = (input) => {
   input = input || {};
   access = access || {};
-  const roles = Object.keys(input);
+  roles = Object.keys(input);
   for (let i = 0; i < roles.length; i++) {
     const role = roles[i];
     const array = input[role] || [];
@@ -31,6 +28,41 @@ const setAccess = (input) => {
     }
   }
   return access;
+};
+
+// GET ROLE
+
+const extractRoles = (url) => {
+  const presentIn = [];
+  for (let i = 0; i < roles.length; i++) {
+    if (roleHasURL(roles[i], url)) presentIn.push(roles[i]);
+  }
+  return presentIn;
+};
+
+const buildRegex = (input) => {
+  if (!input) return null;
+  const parts = input.split('/');
+  let comp = '^';
+  for (let i = 0; i < parts.length; i++) {
+    if (parts[i].startsWith(':')) comp += '.*/';
+    else if (parts[i] === '*') comp += '.*/';
+    else comp += `${parts[i]}/`;
+  }
+  comp += '$';
+  return comp;
+};
+
+const roleHasURL = (role, url) => {
+  const array = access[role];
+  for (let i = 0; i < array.length; i++) {
+    if (urlMatches(array[i].path, url)) return true;
+  }
+  return false;
+};
+
+const urlMatches = (comparison, url) => {
+  const compare = buildRegex(comparison);
 };
 
 
@@ -65,6 +97,7 @@ const verbFromEntry = (entry) => {
 
 if (process.env.NODE_ENV === 'test') {
   module.exports = {
+    buildRegex,
     pathFromEntry,
     filterFromEntry,
     flushAccessList,
