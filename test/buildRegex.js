@@ -4,7 +4,7 @@ const { assert } = require('chai');
 const main = require('../main');
 
 
-describe('filter from entry', () => { // eslint-disable-line no-undef, max-lines-per-function
+describe('buildRegex', () => { // eslint-disable-line no-undef, max-lines-per-function
 
   it('has :', (done) => { // eslint-disable-line no-undef
     const comparison = main.buildRegex('/places/:id/metrics');

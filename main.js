@@ -54,7 +54,7 @@ const buildRegex = (input) => {
 };
 
 const roleHasURL = (role, url) => {
-  const array = access[role];
+  const array = access[role] || [];
   for (let i = 0; i < array.length; i++) {
     if (urlMatches(array[i].path, url)) return true;
   }
@@ -63,6 +63,10 @@ const roleHasURL = (role, url) => {
 
 const urlMatches = (comparison, url) => {
   const compare = buildRegex(comparison);
+  if (!compare) return false;
+  const tester = new RegExp(compare);
+  url = url.endsWith('/') ? url : `${url}/`;
+  return tester.test(url);
 };
 
 
@@ -98,15 +102,16 @@ const verbFromEntry = (entry) => {
 if (process.env.NODE_ENV === 'test') {
   module.exports = {
     buildRegex,
-    pathFromEntry,
+    init,
     filterFromEntry,
     flushAccessList,
-    verbFromEntry,
-    parseEntry,
-    init,
     getAccessList,
+    pathFromEntry,
+    parseEntry,
+    urlMatches,
     setAccess,
-    access,
+    verbFromEntry,
+
   };
 } else {
   init();
