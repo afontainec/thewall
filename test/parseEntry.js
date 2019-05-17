@@ -6,6 +6,10 @@ const main = require('../main');
 
 describe('parse entry', () => { // eslint-disable-line no-undef, max-lines-per-function
 
+  before(() => { // eslint-disable-line no-undef
+    main.flushAccessList();
+  });
+
   it('access and role are undef', (done) => { // eslint-disable-line no-undef
     main.parseEntry('role', ['/path', 'id', 'get']);
     const list = main.getAccessList();

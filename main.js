@@ -102,12 +102,14 @@ const verbFromEntry = (entry) => {
 if (process.env.NODE_ENV === 'test') {
   module.exports = {
     buildRegex,
+    extractRoles,
     init,
     filterFromEntry,
     flushAccessList,
     getAccessList,
     pathFromEntry,
     parseEntry,
+    roleHasURL,
     urlMatches,
     setAccess,
     verbFromEntry,
