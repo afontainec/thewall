@@ -15,19 +15,24 @@ describe('role has URL', () => { // eslint-disable-line no-undef, max-lines-per-
 
 
   it('it has the path', (done) => { // eslint-disable-line no-undef
-    assert.isTrue(main.roleHasURL('role', '/path/to/yes'));
+    assert.isTrue(main.roleHasURL('role', '/path/to/yes', 'get'));
+    done();
+  });
+
+  it('it has the path but different verb', (done) => { // eslint-disable-line no-undef
+    assert.isFalse(main.roleHasURL('role', '/path/to/yes', 'put'));
     done();
   });
 
   it('it does not have the path', (done) => { // eslint-disable-line no-undef
-    assert.isFalse(main.roleHasURL('role', '/path/to/no'));
+    assert.isFalse(main.roleHasURL('role', '/path/to/no', 'get'));
 
     done();
   });
 
 
   it('role not present in access', (done) => { // eslint-disable-line no-undef
-    assert.isFalse(main.roleHasURL('other', '/path/to/no'));
+    assert.isFalse(main.roleHasURL('other', '/path/to/no', 'get'));
     done();
   });
 

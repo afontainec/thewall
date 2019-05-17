@@ -17,7 +17,7 @@ describe('extractRoles', () => { // eslint-disable-line no-undef, max-lines-per-
 
 
   it('Happy path', (done) => { // eslint-disable-line no-undef
-    assert.deepEqual(main.extractRoles('/path/to/yes'), ['role', 'other']);
+    assert.deepEqual(main.extractRoles('/path/to/yes', 'get'), ['role', 'other']);
     done();
   });
 

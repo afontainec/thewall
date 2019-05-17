@@ -40,10 +40,10 @@ const hasAccess = (userId, url, verb) => {
 
 // GET ROLE
 
-const extractRoles = (url) => {
+const extractRoles = (url, verb) => {
   const presentIn = [];
   for (let i = 0; i < roles.length; i++) {
-    if (roleHasURL(roles[i], url)) presentIn.push(roles[i]);
+    if (roleHasURL(roles[i], url, verb)) presentIn.push(roles[i]);
   }
   return presentIn;
 };
@@ -61,10 +61,10 @@ const buildRegex = (input) => {
   return comp;
 };
 
-const roleHasURL = (role, url) => {
+const roleHasURL = (role, url, verb) => {
   const array = list[role] || [];
   for (let i = 0; i < array.length; i++) {
-    if (urlMatches(array[i].path, url)) return true;
+    if (urlMatches(array[i].path, url) && verb === array[i].verb) return true;
   }
   return false;
 };
