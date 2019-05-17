@@ -48,7 +48,7 @@ const find = (url, verb) => {
     const inRole = findInRole(roles[i], url, verb);
     if (inRole) results[roles[i]] = inRole;
   }
-  return {};
+  return results;
 };
 
 // /////////URL MATCHES
