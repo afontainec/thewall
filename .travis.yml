@@ -7,6 +7,7 @@ before_script:
   - psql -c 'create database thewall_test;' -U postgres
   - psql -c 'create database thewall;' -U postgres
   - npm i knex -g
+  - npm install
 script:
   - npm run test
   - npm run coverage
