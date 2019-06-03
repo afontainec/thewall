@@ -16,7 +16,7 @@ const hasAccess = async (userId, url, verb) => {
 
 const initialize = () => {
   AccessList.init(config);
-  Access.createTable();
+  DatabaseManager.init();
 };
 
 // GET ROLE
