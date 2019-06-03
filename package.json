@@ -4,7 +4,9 @@
   "description": "Protect you app. Protect your routes.",
   "main": "index.js",
   "scripts": {
-    "test": "nyc mocha --recursive --timeout 20000 test/"
+    "test": "nyc mocha --recursive --timeout 20000 test/ --exit",
+    "coverage": "nyc check-coverage --statements 90 --branches 85 --functions 90 --lines 90",
+    "linter": "eslint -c .eslintrc.js ."
   },
   "author": "ant.font",
   "license": "ISC",
