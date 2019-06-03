@@ -23,7 +23,7 @@ describe('created', () => { // eslint-disable-line no-undef, max-lines-per-funct
     DatabaseManager.createTable().then(() => {
       done('IT SHOULD NOT GET HERE');
     }).catch((err) => {
-      assert.equal(err.message, 'CREATE TABLE thewall_access (id SERIAL, user_id INTEGER, roles TEXT []) - relation "thewall_access" already exists');
+      assert.equal(err.message, 'CREATE TABLE thewall_access (id SERIAL, user_id INTEGER, role TEXT) - relation "thewall_access" already exists');
       done();
     });
   });
