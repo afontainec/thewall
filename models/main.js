@@ -11,7 +11,6 @@ const hasAccess = async (userId, url, verb) => {
   const roles = Object.keys(entries);
   if (roles.length === 0) return true; // if its not restricted then its open to everyone
   return DatabaseManager.hasAccess(userId, roles);
-  // return hasCorrectFilter(results, filters);
 };
 
 
@@ -23,10 +22,10 @@ const initialize = () => {
 // GET ROLE
 
 
-if (process.env.NODE_ENV === 'test') {
-  module.exports = {
-    hasAccess,
-  };
-} else {
-  AccessList.init(config);
-}
+module.exports = {
+  hasAccess,
+  initialize,
+};
+
+
+initialize();
