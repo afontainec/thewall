@@ -13,6 +13,12 @@ const hasAccess = async (userId, url, verb) => {
   // return hasCorrectFilter(results, filters);
 };
 
+
+const initialize = () => {
+  AccessList.init(config);
+  Access.createTable();
+};
+
 // GET ROLE
 
 
