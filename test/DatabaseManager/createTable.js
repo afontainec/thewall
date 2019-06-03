@@ -5,7 +5,7 @@ const config = require('../../config');
 const DatabaseManager = require('../../models/DatabaseManager');
 
 
-describe('is Table Created', () => { // eslint-disable-line no-undef, max-lines-per-function
+describe('created', () => { // eslint-disable-line no-undef, max-lines-per-function
 
   before(async () => { // eslint-disable-line no-undef
     DatabaseManager.setKnex(config);
@@ -23,7 +23,7 @@ describe('is Table Created', () => { // eslint-disable-line no-undef, max-lines-
     DatabaseManager.createTable().then(() => {
       done('IT SHOULD NOT GET HERE');
     }).catch((err) => {
-      assert.equal(err.message, 'CREATE TABLE thewall_access (id SERIAL, user_id INTEGER, role TEXT) - relation "thewall_access" already exists');
+      assert.equal(err.message, 'CREATE TABLE thewall_access (id SERIAL, user_id INTEGER, roles TEXT []) - relation "thewall_access" already exists');
       done();
     });
   });
