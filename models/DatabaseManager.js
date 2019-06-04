@@ -51,12 +51,12 @@ const flushAccess = async () => {
 
 const publicMethods = {
   init,
+  hasAccess,
 };
 
 if (process.env.NODE_ENV === 'test') {
   publicMethods.addAccess = addAccess;
   publicMethods.removeAccess = removeAccess;
-  publicMethods.hasAccess = hasAccess;
   publicMethods.flushAccess = flushAccess;
 
   publicMethods.createTable = createTable;

@@ -80,6 +80,7 @@ const urlMatches = (comparison, url) => {
 const parseEntry = (role, entry) => {
   if (!list) list = {};
   if (!list[role]) list[role] = [];
+
   list[role].push({
     path: pathFromEntry(entry),
     verb: verbFromEntry(entry),
