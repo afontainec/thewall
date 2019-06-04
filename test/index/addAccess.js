@@ -3,7 +3,7 @@ process.env.NODE_ENV = 'test';
 const { assert } = require('chai');
 const config = require('../../config');
 const DatabaseManager = require('../../models/DatabaseManager');
-const TheWall = require('../..');
+const TheWall = require('../..')(config);
 
 
 describe('addAccess', () => { // eslint-disable-line no-undef, max-lines-per-function

@@ -1,10 +1,22 @@
 const AccessList = require('./models/AccessList');
 const Guard = require('./models/guard');
-const config = require('./config');
 const DatabaseManager = require('./models/DatabaseManager');
 
 
 // //// Has Access
+
+module.exports = function initialize(config) {
+  AccessList.init(config.access);
+  DatabaseManager.init(config);
+  return {
+    addAccess,
+    findAccess: DatabaseManager.findAccess,
+    updateAccess: DatabaseManager.updateAccess,
+    delete: DatabaseManager.deleteAccess,
+    hasAccess,
+    initialize,
+  };
+};
 
 
 const hasAccess = async (userId, url, verb) => {
@@ -21,25 +33,3 @@ const addAccess = async (userId, role, filter) => {
   if (filter) access.filter = filter;
   return DatabaseManager.addAccess(access);
 };
-
-
-const initialize = () => {
-  AccessList.init(config.access);
-  DatabaseManager.init(config);
-};
-
-// GET ROLE
-
-
-module.exports = {
-  addAccess,
-  findAccess: DatabaseManager.findAccess,
-  updateAccess: DatabaseManager.updateAccess,
-  delete: DatabaseManager.deleteAccess,
-
-  hasAccess,
-  initialize,
-};
-
-
-initialize();
