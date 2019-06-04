@@ -1,9 +1,35 @@
-const hasAccess = (userId, url, entries) => {
-  const validCombinations = getCombinations(url, entries);
-  if (validCombinations.length === 0) return true; // if its not restricted then its open to everyone
+const DatabaseManager = require('./DatabaseManager');
 
-  // return DatabaseManager.hasAccess(userId, validCombinations);
+const hasAccess = async (userId, url, entries) => {
+  const validCombinations = getCombinations(url, entries);
+  // if its not restricted then its open to everyone
+  if (validCombinations.length === 0) return true;
+  const query = buildQuery(userId, validCombinations);
+  console.log(query.toString());
+  const a = await query;
+  console.log(a);
 };
+
+function buildQuery(userId, validCombinations) {
+  validCombinations = validCombinations || [];
+  const query = DatabaseManager.table();
+  query.select('*');
+  for (let i = 0; i < validCombinations.length; i++) {
+    const array = validCombinations[i];
+    if (array.length === 2) {
+      query.orWhere(function filter() {
+        this.where('role', array[0]).andWhere('filter', array[1]).andWhere('user_id', userId);
+      });
+    } else if (array.length === 1) {
+      query.orWhere(function filter() {
+        this.where('role', array[0]).andWhere('user_id', userId);
+      });
+    } else {
+      query.orWhereRaw('1 = 0');
+    }
+  }
+  return query;
+}
 
 function isEmpty(json) {
   return !json || Object.keys(json) === 0;
@@ -47,6 +73,7 @@ const publicMethods = {
 
 if (process.env.NODE_ENV === 'test') {
   publicMethods.buildCombination = buildCombination;
+  publicMethods.buildQuery = buildQuery;
   publicMethods.extractFilter = extractFilter;
   publicMethods.getCombinations = getCombinations;
 }

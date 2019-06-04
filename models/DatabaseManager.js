@@ -3,6 +3,7 @@ let knex;
 
 
 // INITIALIZE
+
 const init = async (config) => {
   setKnex(config);
   const exists = await isTableCreated();
@@ -27,6 +28,10 @@ const getKnex = () => {
 const setKnex = (config) => {
   if (!config || !config.knex) throw new Error('No knex set. A given knex must be given');
   knex = require(config.knex); // eslint-disable-line import/no-dynamic-require, global-require
+};
+
+const table = () => {
+  return knex(DEFAULT_NAME);
 };
 
 // CRUD ACCESS
@@ -56,14 +61,14 @@ const publicMethods = {
 
 if (process.env.NODE_ENV === 'test') {
   publicMethods.addAccess = addAccess;
-  publicMethods.removeAccess = removeAccess;
-  publicMethods.flushAccess = flushAccess;
-
   publicMethods.createTable = createTable;
-  publicMethods.isTableCreated = isTableCreated;
-  publicMethods.setKnex = setKnex;
-  publicMethods.getKnex = getKnex;
   publicMethods.DEFAULT_NAME = DEFAULT_NAME;
+  publicMethods.flushAccess = flushAccess;
+  publicMethods.isTableCreated = isTableCreated;
+  publicMethods.getKnex = getKnex;
+  publicMethods.table = table;
+  publicMethods.removeAccess = removeAccess;
+  publicMethods.setKnex = setKnex;
 }
 
 module.exports = publicMethods;
