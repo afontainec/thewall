@@ -16,7 +16,7 @@ describe('removeAccess', () => { // eslint-disable-line no-undef, max-lines-per-
 
   it('it is added', async () => { // eslint-disable-line no-undef
     await DatabaseManager.addAccess({ user_id: 1, role: 'test_role' });
-    await DatabaseManager.removeAccess({ user_id: 1, role: 'test_role' });
+    await DatabaseManager.deleteAccess({ user_id: 1, role: 'test_role' });
     const results = await knex(DatabaseManager.DEFAULT_NAME).select('*').where('user_id', 1);
     assert.equal(results.length, 0);
   });
@@ -24,7 +24,7 @@ describe('removeAccess', () => { // eslint-disable-line no-undef, max-lines-per-
   it('input is null, nothing happens', async () => { // eslint-disable-line no-undef
     await DatabaseManager.addAccess({ user_id: 1, role: 'test_role' });
     const before = await knex(DatabaseManager.DEFAULT_NAME).count('*');
-    await DatabaseManager.removeAccess();
+    await DatabaseManager.deleteAccess();
     const after = await knex(DatabaseManager.DEFAULT_NAME).count('*');
     assert.deepEqual(before, after);
   });

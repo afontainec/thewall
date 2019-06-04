@@ -13,7 +13,7 @@ const hasAccess = async (userId, url, verb) => {
 };
 
 const addAccess = async (userId, role, filter) => {
-  if (!userId || !role) return Promise.reject(new Error('No user_id and/or role defined'));
+  if (!userId || !role) throw new Error('No user_id and/or role defined');
   const access = {
     user_id: userId,
     role,
@@ -35,7 +35,7 @@ module.exports = {
   addAccess,
   findAccess: DatabaseManager.findAccess,
   updateAccess: DatabaseManager.updateAccess,
-  delete: DatabaseManager.delete,
+  delete: DatabaseManager.deleteAccess,
 
   hasAccess,
   initialize,
