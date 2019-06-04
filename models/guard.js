@@ -35,7 +35,7 @@ const extractFilter = (url, templateUrl, filter) => {
   const parts = templateUrl.split(divider);
   const extractor = `^${parts[0]}(.*)${parts[1]}$`;
   const regex = new RegExp(extractor);
-  return url.match(regex);
+  return url.match(regex)[1];
 };
 
 
