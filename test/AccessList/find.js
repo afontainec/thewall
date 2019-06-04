@@ -1,7 +1,7 @@
 process.env.NODE_ENV = 'test';
 
 const { assert } = require('chai');
-const AccessList = require('../models/AccessList');
+const AccessList = require('../../models/AccessList');
 
 const expected = {
   role: {

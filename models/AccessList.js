@@ -69,7 +69,7 @@ const buildRegex = (input) => {
 
 const urlMatches = (comparison, url) => {
   const compare = buildRegex(comparison);
-  if (!compare) return false;
+  if (!compare || !url) return false;
   const tester = new RegExp(compare);
   url = url.endsWith('/') ? url : `${url}/`;
   return tester.test(url);
@@ -80,6 +80,7 @@ const urlMatches = (comparison, url) => {
 const parseEntry = (role, entry) => {
   if (!list) list = {};
   if (!list[role]) list[role] = [];
+
   list[role].push({
     path: pathFromEntry(entry),
     verb: verbFromEntry(entry),
@@ -103,20 +104,23 @@ const verbFromEntry = (entry) => {
   return entry[2];
 };
 
-if (process.env.NODE_ENV === 'test') {
-  module.exports = {
-    buildRegex,
-    init,
-    filterFromEntry,
-    findInRole,
-    find,
-    flush,
-    get,
-    pathFromEntry,
-    parseEntry,
-    setAccessList,
-    urlMatches,
-    verbFromEntry,
+const publicMethods = {
+  init,
+  find,
+  flush,
+  get,
+};
 
-  };
+if (process.env.NODE_ENV === 'test') {
+  publicMethods.buildRegex = buildRegex;
+  publicMethods.filterFromEntry = filterFromEntry;
+  publicMethods.findInRole = findInRole;
+  publicMethods.pathFromEntry = pathFromEntry;
+  publicMethods.parseEntry = parseEntry;
+  publicMethods.setAccessList = setAccessList;
+  publicMethods.urlMatches = urlMatches;
+  publicMethods.verbFromEntry = verbFromEntry;
 }
+
+
+module.exports = publicMethods;

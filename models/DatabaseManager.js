@@ -3,6 +3,7 @@ let knex;
 
 
 // INITIALIZE
+
 const init = async (config) => {
   setKnex(config);
   const exists = await isTableCreated();
@@ -10,7 +11,7 @@ const init = async (config) => {
 };
 
 const createTable = async () => {
-  const query = knex.raw(`CREATE TABLE ${DEFAULT_NAME} (id SERIAL, user_id INTEGER, role TEXT)`);
+  const query = knex.raw(`CREATE TABLE ${DEFAULT_NAME} (id SERIAL, user_id INTEGER, role TEXT, filter TEXT)`);
   return query;
 };
 
@@ -29,6 +30,10 @@ const setKnex = (config) => {
   knex = require(config.knex); // eslint-disable-line import/no-dynamic-require, global-require
 };
 
+const table = () => {
+  return knex(DEFAULT_NAME);
+};
+
 // CRUD ACCESS
 
 const addAccess = async (access) => {
@@ -37,11 +42,6 @@ const addAccess = async (access) => {
 
 const removeAccess = async (access) => {
   return access ? knex(DEFAULT_NAME).del().where(access) : true;
-};
-
-const hasAccess = async (userId, roles) => {
-  const results = await knex(DEFAULT_NAME).select('*').where('user_id', userId).andWhere('role', 'in', roles);
-  return results.length > 0;
 };
 
 const flushAccess = async () => {
@@ -55,15 +55,14 @@ const publicMethods = {
 
 if (process.env.NODE_ENV === 'test') {
   publicMethods.addAccess = addAccess;
-  publicMethods.removeAccess = removeAccess;
-  publicMethods.hasAccess = hasAccess;
-  publicMethods.flushAccess = flushAccess;
-
   publicMethods.createTable = createTable;
-  publicMethods.isTableCreated = isTableCreated;
-  publicMethods.setKnex = setKnex;
-  publicMethods.getKnex = getKnex;
   publicMethods.DEFAULT_NAME = DEFAULT_NAME;
+  publicMethods.flushAccess = flushAccess;
+  publicMethods.isTableCreated = isTableCreated;
+  publicMethods.getKnex = getKnex;
+  publicMethods.table = table;
+  publicMethods.removeAccess = removeAccess;
+  publicMethods.setKnex = setKnex;
 }
 
 module.exports = publicMethods;

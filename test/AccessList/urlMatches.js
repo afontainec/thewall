@@ -1,7 +1,7 @@
 process.env.NODE_ENV = 'test';
 
 const { assert } = require('chai');
-const AccessList = require('../models/AccessList');
+const AccessList = require('../../models/AccessList');
 
 
 describe('urlMatches', () => { // eslint-disable-line no-undef, max-lines-per-function
@@ -28,8 +28,13 @@ describe('urlMatches', () => { // eslint-disable-line no-undef, max-lines-per-fu
     done();
   });
 
-  it('input is undefined', (done) => { // eslint-disable-line no-undef
-    assert.isFalse(AccessList.urlMatches());
+  it('comparison is undefined', (done) => { // eslint-disable-line no-undef
+    assert.isFalse(AccessList.urlMatches(null, '/place/3'));
+    done();
+  });
+
+  it('url is undefined', (done) => { // eslint-disable-line no-undef
+    assert.isFalse(AccessList.urlMatches('/*'));
     done();
   });
 
