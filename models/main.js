@@ -1,4 +1,5 @@
 const AccessList = require('./AccessList');
+const Guard = require('./guard');
 const config = require('../config');
 const DatabaseManager = require('./DatabaseManager');
 
@@ -8,9 +9,7 @@ const DatabaseManager = require('./DatabaseManager');
 
 const hasAccess = async (userId, url, verb) => {
   const entries = AccessList.find(url, verb);
-  const roles = Object.keys(entries);
-  if (roles.length === 0) return true; // if its not restricted then its open to everyone
-  return DatabaseManager.hasAccess(userId, roles);
+  Guard.canItGoThrough(userId, url, entries);
 };
 
 
