@@ -9,8 +9,7 @@ describe('init', () => { // eslint-disable-line no-undef, max-lines-per-function
 
   before(async () => { // eslint-disable-line no-undef
     DatabaseManager.setKnex(config);
-    const results = await DatabaseManager.getKnex().raw(`SELECT * FROM information_schema.tables WHERE  table_name = '${DatabaseManager.DEFAULT_NAME}'`);
-    if (results.rows.length > 0) await DatabaseManager.getKnex().raw(`DROP TABLE ${DatabaseManager.DEFAULT_NAME}`);
+    await DatabaseManager.getKnex().raw(`DROP TABLE IF EXISTS ${DatabaseManager.DEFAULT_NAME}`);
   });
 
   it('table it is not created', async () => { // eslint-disable-line no-undef

@@ -6,20 +6,21 @@ let knex;
 
 const init = async (config) => {
   setKnex(config);
-  const exists = await isTableCreated();
-  return exists ? true : createTable();
+  return createTable();
+  // const exists = await isTableCreated();
+  // return exists ? true : createTable();
 };
 
 const createTable = async () => {
-  const query = knex.raw(`CREATE TABLE ${DEFAULT_NAME} (id SERIAL, user_id INTEGER, role TEXT, filter TEXT)`);
+  const query = knex.raw(`CREATE TABLE IF NOT EXISTS ${DEFAULT_NAME} (id SERIAL, user_id INTEGER, role TEXT, filter TEXT)`);
   return query;
 };
 
-const isTableCreated = async () => {
-  const query = knex.select('*').from('information_schema.tables').where('table_name', DEFAULT_NAME);
-  const results = await query;
-  return results.length > 0;
-};
+// const isTableCreated = async () => {
+//   const query = knex.select('*').from('information_schema.tables').where('table_name', DEFAULT_NAME);
+//   const results = await query;
+//   return results.length > 0;
+// };
 
 const getKnex = () => {
   return knex;
@@ -68,7 +69,7 @@ if (process.env.NODE_ENV === 'test') {
   publicMethods.DEFAULT_NAME = DEFAULT_NAME;
   publicMethods.findAccess = findAccess;
   publicMethods.flushAccess = flushAccess;
-  publicMethods.isTableCreated = isTableCreated;
+  // publicMethods.isTableCreated = isTableCreated;
   publicMethods.getKnex = getKnex;
   publicMethods.table = table;
   publicMethods.setKnex = setKnex;
