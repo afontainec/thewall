@@ -3,22 +3,24 @@ let knex;
 
 
 // INITIALIZE
+
 const init = async (config) => {
   setKnex(config);
-  const exists = await isTableCreated();
-  return exists ? true : createTable();
+  return createTable();
+  // const exists = await isTableCreated();
+  // return exists ? true : createTable();
 };
 
 const createTable = async () => {
-  const query = knex.raw(`CREATE TABLE ${DEFAULT_NAME} (id SERIAL, user_id INTEGER, role TEXT)`);
+  const query = knex.raw(`CREATE TABLE IF NOT EXISTS ${DEFAULT_NAME} (id SERIAL, user_id INTEGER, role TEXT, filter TEXT)`);
   return query;
 };
 
-const isTableCreated = async () => {
-  const query = knex.select('*').from('information_schema.tables').where('table_name', DEFAULT_NAME);
-  const results = await query;
-  return results.length > 0;
-};
+// const isTableCreated = async () => {
+//   const query = knex.select('*').from('information_schema.tables').where('table_name', DEFAULT_NAME);
+//   const results = await query;
+//   return results.length > 0;
+// };
 
 const getKnex = () => {
   return knex;
@@ -29,19 +31,26 @@ const setKnex = (config) => {
   knex = require(config.knex); // eslint-disable-line import/no-dynamic-require, global-require
 };
 
+const table = () => {
+  return knex(DEFAULT_NAME);
+};
+
 // CRUD ACCESS
 
 const addAccess = async (access) => {
   return access ? knex(DEFAULT_NAME).insert(access) : true;
 };
 
-const removeAccess = async (access) => {
+const deleteAccess = async (access) => {
   return access ? knex(DEFAULT_NAME).del().where(access) : true;
 };
 
-const hasAccess = async (userId, roles) => {
-  const results = await knex(DEFAULT_NAME).select('*').where('user_id', userId).andWhere('role', 'in', roles);
-  return results.length > 0;
+const findAccess = async (access) => {
+  return access ? knex(DEFAULT_NAME).select('*').where(access) : [];
+};
+
+const updateAccess = async (where, newValues) => {
+  return where ? knex(DEFAULT_NAME).update(newValues).where(where) : [];
 };
 
 const flushAccess = async () => {
@@ -55,15 +64,16 @@ const publicMethods = {
 
 if (process.env.NODE_ENV === 'test') {
   publicMethods.addAccess = addAccess;
-  publicMethods.removeAccess = removeAccess;
-  publicMethods.hasAccess = hasAccess;
-  publicMethods.flushAccess = flushAccess;
-
   publicMethods.createTable = createTable;
-  publicMethods.isTableCreated = isTableCreated;
-  publicMethods.setKnex = setKnex;
-  publicMethods.getKnex = getKnex;
+  publicMethods.deleteAccess = deleteAccess;
   publicMethods.DEFAULT_NAME = DEFAULT_NAME;
+  publicMethods.findAccess = findAccess;
+  publicMethods.flushAccess = flushAccess;
+  // publicMethods.isTableCreated = isTableCreated;
+  publicMethods.getKnex = getKnex;
+  publicMethods.table = table;
+  publicMethods.setKnex = setKnex;
+  publicMethods.updateAccess = updateAccess;
 }
 
 module.exports = publicMethods;

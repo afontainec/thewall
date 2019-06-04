@@ -19,13 +19,11 @@ describe('created', () => { // eslint-disable-line no-undef, max-lines-per-funct
     assert.equal(results.rows.length, 1);
   });
 
-  it('it is created', (done) => { // eslint-disable-line no-undef
-    DatabaseManager.createTable().then(() => {
-      done('IT SHOULD NOT GET HERE');
-    }).catch((err) => {
-      assert.equal(err.message, 'CREATE TABLE thewall_access (id SERIAL, user_id INTEGER, role TEXT) - relation "thewall_access" already exists');
-      done();
-    });
+  it('it is created', async () => { // eslint-disable-line no-undef
+    await DatabaseManager.table().insert({ user_id: 1 });
+    await DatabaseManager.createTable();
+    const results = await DatabaseManager.table().count('*');
+    assert.equal(results[0].count, 1);
   });
 
 });
