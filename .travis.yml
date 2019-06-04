@@ -12,3 +12,9 @@ script:
   - npm run test
   - npm run coverage
   - npm run linter
+notifications:
+  email:
+    recipients:
+      - afontaine@uc.cl
+    on_success: never
+    on_failure: always
