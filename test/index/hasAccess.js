@@ -18,9 +18,14 @@ describe('Index.hasAccess', () => { // eslint-disable-line no-undef, max-lines-p
     assert.isTrue(hasAccess);
   });
 
+  it('has no access', async () => { // eslint-disable-line no-undef
+    const hasAccess = await TheWall.hasAccess(1, '/places/11', 'get');
+    assert.isTrue(hasAccess);
+  });
+
   it('no restriction set', async () => { // eslint-disable-line no-undef
     const hasAccess = await TheWall.hasAccess(10, '/open/to/everyone', 'get');
-    assert.isFalse(hasAccess);
+    assert.isTrue(hasAccess);
   });
 
   it('empty params', async () => { // eslint-disable-line no-undef
