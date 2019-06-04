@@ -10,7 +10,7 @@ const init = async (config) => {
 };
 
 const createTable = async () => {
-  const query = knex.raw(`CREATE TABLE ${DEFAULT_NAME} (id SERIAL, user_id INTEGER, role TEXT)`);
+  const query = knex.raw(`CREATE TABLE ${DEFAULT_NAME} (id SERIAL, user_id INTEGER, role TEXT, filter TEXT)`);
   return query;
 };
 
