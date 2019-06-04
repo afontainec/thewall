@@ -8,7 +8,7 @@ describe('Extract Filter', () => { // eslint-disable-line no-undef, max-lines-pe
 
   it('role is null', (done) => { // eslint-disable-line no-undef
     const role = {
-      path: '/places/:id/other',
+      path: '/places/:id/some',
       filter: 'id',
     };
     const combination = Guard.buildCombination('/places/3/some', null, role);
@@ -18,7 +18,8 @@ describe('Extract Filter', () => { // eslint-disable-line no-undef, max-lines-pe
 
   it('entry is null', (done) => { // eslint-disable-line no-undef
     const combination = Guard.buildCombination('/places/3/some', 'role');
-    done('NOT IMPLEMETED');
+    assert.deepEqual(combination, []);
+    done();
   });
 
   it('entry.filter is null', (done) => { // eslint-disable-line no-undef
@@ -26,15 +27,17 @@ describe('Extract Filter', () => { // eslint-disable-line no-undef, max-lines-pe
       path: '/places/all',
     };
     const combination = Guard.buildCombination('/places/3/some', 'role', role);
-    done('NOT IMPLEMETED');
+    assert.deepEqual(combination, ['role']);
+    done();
   });
 
   it('happy path', (done) => { // eslint-disable-line no-undef
     const role = {
-      path: '/places/:id/other',
+      path: '/places/:id/some',
       filter: 'id',
     };
     const combination = Guard.buildCombination('/places/3/some', 'role', role);
-    done('NOT IMPLEMETED');
+    assert.deepEqual(combination, ['role', '3']);
+    done();
   });
 });
