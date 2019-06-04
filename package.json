@@ -1,15 +1,23 @@
 {
-  "name": "chungungo",
+  "name": "thewall",
   "version": "1.0.0",
   "description": "Protect you app. Protect your routes.",
   "main": "index.js",
   "scripts": {
-    "test": "nyc mocha --recursive --timeout 20000 test/"
+    "test": "nyc mocha --recursive --timeout 20000 test/ --exit",
+    "coverage": "nyc check-coverage --statements 90 --branches 85 --functions 90 --lines 90",
+    "linter": "eslint -c .eslintrc.js ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/afontainec/thewall.git"
+  },
+  "bugs": {
+    "url": "https://github.com/afontainec/thewall/issues"
   },
   "author": "ant.font",
   "license": "ISC",
   "dependencies": {
-    "codemaster": "0.0.8",
     "commander": "^2.19.0",
     "express": "^4.16.4",
     "knex": "^0.15.2",

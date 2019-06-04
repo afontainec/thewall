@@ -1,4 +1,0 @@
-
-const createTable = async () => {
-
-};
