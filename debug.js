@@ -1,3 +1,4 @@
+/* eslint-disable */
 const index = require('.');
 const AccessList = require('./models/AccessList');
 const Guard = require('./models/guard');
