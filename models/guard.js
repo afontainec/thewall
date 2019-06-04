@@ -1,6 +1,7 @@
 const hasAccess = (userId, url, entries) => {
-  if (isEmpty(entries)) return true; // if its not restricted then its open to everyone
   const validCombinations = getCombinations(url, entries);
+  if (validCombinations.length === 0) return true; // if its not restricted then its open to everyone
+
   // return DatabaseManager.hasAccess(userId, validCombinations);
 };
 
@@ -9,6 +10,7 @@ function isEmpty(json) {
 }
 
 const getCombinations = (url, entries) => {
+  if (isEmpty(entries)) return [];
   const roles = Object.keys(entries);
   const array = [];
   for (let i = 0; i < roles.length; i++) {
@@ -46,6 +48,7 @@ const publicMethods = {
 if (process.env.NODE_ENV === 'test') {
   publicMethods.buildCombination = buildCombination;
   publicMethods.extractFilter = extractFilter;
+  publicMethods.getCombinations = getCombinations;
 }
 
 module.exports = publicMethods;

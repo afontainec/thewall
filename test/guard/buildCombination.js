@@ -4,7 +4,7 @@ const { assert } = require('chai');
 const Guard = require('../../models/guard');
 
 
-describe('Extract Filter', () => { // eslint-disable-line no-undef, max-lines-per-function
+describe('buildCombination', () => { // eslint-disable-line no-undef, max-lines-per-function
 
   it('role is null', (done) => { // eslint-disable-line no-undef
     const role = {
