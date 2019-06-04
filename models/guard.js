@@ -5,9 +5,8 @@ const hasAccess = async (userId, url, entries) => {
   // if its not restricted then its open to everyone
   if (validCombinations.length === 0) return true;
   const query = buildQuery(userId, validCombinations);
-  console.log(query.toString());
   const a = await query;
-  console.log(a);
+  return a.length > 0;
 };
 
 function buildQuery(userId, validCombinations) {
@@ -31,9 +30,8 @@ function buildQuery(userId, validCombinations) {
   return query;
 }
 
-function isEmpty(json) {
-  return !json || Object.keys(json) === 0;
-}
+
+// ////////////////////GET COMBINATIONS
 
 const getCombinations = (url, entries) => {
   if (isEmpty(entries)) return [];
@@ -65,6 +63,10 @@ const extractFilter = (url, templateUrl, filter) => {
   const result = url.match(regex);
   return result && result[1] ? result[1] : null;
 };
+
+function isEmpty(json) {
+  return !json || Object.keys(json) === 0;
+}
 
 
 const publicMethods = {

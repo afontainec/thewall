@@ -44,11 +44,6 @@ const removeAccess = async (access) => {
   return access ? knex(DEFAULT_NAME).del().where(access) : true;
 };
 
-const hasAccess = async (userId, roles) => {
-  const results = await knex(DEFAULT_NAME).select('*').where('user_id', userId).andWhere('role', 'in', roles);
-  return results.length > 0;
-};
-
 const flushAccess = async () => {
   return knex(DEFAULT_NAME).del();
 };
@@ -56,7 +51,6 @@ const flushAccess = async () => {
 
 const publicMethods = {
   init,
-  hasAccess,
 };
 
 if (process.env.NODE_ENV === 'test') {
