@@ -69,7 +69,7 @@ const buildRegex = (input) => {
 
 const urlMatches = (comparison, url) => {
   const compare = buildRegex(comparison);
-  if (!compare) return false;
+  if (!compare || !url) return false;
   const tester = new RegExp(compare);
   url = url.endsWith('/') ? url : `${url}/`;
   return tester.test(url);

@@ -1,8 +1,12 @@
-const Main = require('./models/main');
+const index = require('.');
+const AccessList = require('./models/AccessList');
+const Guard = require('./models/guard');
+const config = require('./config');
+const DatabaseManager = require('./models/DatabaseManager');
 
 
-const test = '/test/3/some';
-const temp = '/test/:id/some';
-
-
-console.log(Object.keys({}));
+setTimeout(() => {
+  console.log('-------------------------------ESTAMOS');
+  const ent = AccessList.find();
+  console.log(ent);
+}, 1000);
