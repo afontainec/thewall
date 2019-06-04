@@ -44,6 +44,7 @@ const publicMethods = {
 };
 
 if (process.env.NODE_ENV === 'test') {
+  publicMethods.buildCombination = buildCombination;
   publicMethods.extractFilter = extractFilter;
 }
 

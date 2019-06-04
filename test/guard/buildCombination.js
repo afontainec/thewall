@@ -11,8 +11,9 @@ describe('Extract Filter', () => { // eslint-disable-line no-undef, max-lines-pe
       path: '/places/:id/other',
       filter: 'id',
     };
-    const combination = Guard.buildCombination('/places/3/some', 'role', role);
-    done('NOT IMPLEMETED');
+    const combination = Guard.buildCombination('/places/3/some', null, role);
+    assert.deepEqual(combination, []);
+    done();
   });
 
   it('entry is null', (done) => { // eslint-disable-line no-undef
@@ -35,6 +36,5 @@ describe('Extract Filter', () => { // eslint-disable-line no-undef, max-lines-pe
     };
     const combination = Guard.buildCombination('/places/3/some', 'role', role);
     done('NOT IMPLEMETED');
-
-
+  });
 });
