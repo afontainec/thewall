@@ -1,7 +1,7 @@
 process.env.NODE_ENV = 'test';
 
 const { assert } = require('chai');
-const AccessList = require('../models/AccessList');
+const AccessList = require('../../models/AccessList');
 
 
 describe('find in role', () => { // eslint-disable-line no-undef, max-lines-per-function
@@ -26,7 +26,7 @@ describe('find in role', () => { // eslint-disable-line no-undef, max-lines-per-
     });
     const expected = {
       path: '/path/to',
-      verb: 'get',
+      verb: 'all',
       filter: undefined,
     };
     const entry = AccessList.findInRole('role', '/path/to', 'get');

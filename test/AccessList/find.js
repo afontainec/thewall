@@ -6,12 +6,12 @@ const AccessList = require('../../models/AccessList');
 const expected = {
   role: {
     path: '/path/to',
-    verb: 'get',
+    verb: 'all',
     filter: undefined,
   },
   other: {
     path: '/*',
-    verb: 'get',
+    verb: 'all',
     filter: undefined,
   },
 };

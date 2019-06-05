@@ -1,6 +1,8 @@
 let list;
 let roles;
 
+const ALL_VERBS = 'all';
+
 const get = () => {
   return list;
 };
@@ -32,16 +34,6 @@ const setAccessList = (input) => {
 
 // //////////FIND
 
-const findInRole = (role, url, verb) => {
-  if (!list || !list[role]) return null;
-  const array = list[role] || [];
-  for (let i = 0; i < array.length; i++) {
-    const urlIsCorrect = urlMatches(array[i].path, url);
-    if (urlIsCorrect && verb === array[i].verb) return array[i];
-  }
-  return null;
-};
-
 const find = (url, verb) => {
   if (!list) return {};
   const results = {};
@@ -50,6 +42,17 @@ const find = (url, verb) => {
     if (inRole) results[roles[i]] = inRole;
   }
   return results;
+};
+
+const findInRole = (role, url, verb) => {
+  if (!list || !list[role]) return null;
+  const array = list[role] || [];
+  for (let i = 0; i < array.length; i++) {
+    const urlIsCorrect = urlMatches(array[i].path, url);
+    const correctVerb = (verb === array[i].verb || array[i].verb === ALL_VERBS);
+    if (urlIsCorrect && correctVerb) return array[i];
+  }
+  return null;
 };
 
 // /////////URL MATCHES
@@ -101,7 +104,7 @@ const pathFromEntry = (entry) => {
 
 const verbFromEntry = (entry) => {
   const hasVerbSpecification = Array.isArray(entry) && entry.length > 2 && entry[2];
-  if (!hasVerbSpecification) return 'get';
+  if (!hasVerbSpecification) return ALL_VERBS;
   return entry[2].toLowerCase();
 };
 
