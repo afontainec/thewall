@@ -1,3 +1,5 @@
+const Codemaster = require('codemaster');
+
 let list;
 let roles;
 
@@ -7,8 +9,13 @@ const get = () => {
   return list;
 };
 
+const getRoles = () => {
+  return Codemaster.utils.cloneJSON(roles || []);
+};
+
 const flush = () => {
   list = undefined;
+  roles = undefined;
 };
 
 
@@ -113,6 +120,7 @@ const publicMethods = {
   find,
   flush,
   get,
+  getRoles,
 };
 
 if (process.env.NODE_ENV === 'test') {

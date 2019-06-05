@@ -18,6 +18,7 @@
   "author": "ant.font",
   "license": "ISC",
   "dependencies": {
+    "codemaster": "0.0.10",
     "commander": "^2.19.0",
     "express": "^4.16.4",
     "knex": "^0.15.2",
