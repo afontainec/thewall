@@ -60,20 +60,20 @@ const flushAccess = async () => {
 
 const publicMethods = {
   init,
+  addAccess,
+  deleteAccess,
+  findAccess,
+  flushAccess,
+  updateAccess,
+  table,
 };
 
 if (process.env.NODE_ENV === 'test') {
-  publicMethods.addAccess = addAccess;
   publicMethods.createTable = createTable;
-  publicMethods.deleteAccess = deleteAccess;
   publicMethods.DEFAULT_NAME = DEFAULT_NAME;
-  publicMethods.findAccess = findAccess;
-  publicMethods.flushAccess = flushAccess;
   // publicMethods.isTableCreated = isTableCreated;
   publicMethods.getKnex = getKnex;
-  publicMethods.table = table;
   publicMethods.setKnex = setKnex;
-  publicMethods.updateAccess = updateAccess;
 }
 
 module.exports = publicMethods;
