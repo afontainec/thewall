@@ -7,26 +7,6 @@ const input = {
   a: [['/a/:a', 'a', 'get'], 'a/:a/b'],
   b: ['/b', '/b/b'],
 };
-const expected = {
-  a: [{
-    path: '/a/:a',
-    filter: 'a',
-    verb: 'get',
-  }, {
-    path: 'a/:a/b',
-    filter: undefined,
-    verb: 'all',
-  }],
-  b: [{
-    path: '/b',
-    filter: undefined,
-    verb: 'all',
-  }, {
-    path: '/b/b',
-    filter: undefined,
-    verb: 'all',
-  }],
-};
 
 describe('set List', () => { // eslint-disable-line no-undef, max-lines-per-function
 

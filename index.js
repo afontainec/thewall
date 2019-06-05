@@ -13,6 +13,7 @@ module.exports = function initialize(config) {
     findAccess: DatabaseManager.findAccess,
     updateAccess: DatabaseManager.updateAccess,
     delete: DatabaseManager.deleteAccess,
+    getRoles: AccessList.getRoles,
     hasAccess,
     initialize,
   };
