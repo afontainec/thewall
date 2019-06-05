@@ -1,7 +1,7 @@
 process.env.NODE_ENV = 'test';
 
 const { assert } = require('chai');
-const AccessList = require('../models/AccessList');
+const AccessList = require('../../models/AccessList');
 
 const input = {
   a: [['/a/:a', 'a', 'get'], 'a/:a/b'],
@@ -15,16 +15,16 @@ const expected = {
   }, {
     path: 'a/:a/b',
     filter: undefined,
-    verb: 'get',
+    verb: 'all',
   }],
   b: [{
     path: '/b',
     filter: undefined,
-    verb: 'get',
+    verb: 'all',
   }, {
     path: '/b/b',
     filter: undefined,
-    verb: 'get',
+    verb: 'all',
   }],
 };
 
@@ -61,7 +61,7 @@ describe('set List', () => { // eslint-disable-line no-undef, max-lines-per-func
     assert.deepEqual(list, {
       other: [{
         path: '/*',
-        verb: 'get',
+        verb: 'all',
         filter: undefined,
       }],
     });
