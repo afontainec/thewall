@@ -91,12 +91,12 @@ const parseEntry = (role, entry) => {
 const filterFromEntry = (entry) => {
   const hasFilterSpecification = Array.isArray(entry) && entry.length > 1 && entry[1];
   if (!hasFilterSpecification) return undefined;
-  return entry[1];
+  return entry[1].toLowerCase();
 };
 
 const pathFromEntry = (entry) => {
-  const path = Array.isArray(entry) ? entry[0] : entry;
-  return Array.isArray(entry) ? entry[0] : entry;
+  const p = Array.isArray(entry) ? entry[0] : entry;
+  return p ? p.toLowerCase() : p;
 };
 
 const verbFromEntry = (entry) => {
