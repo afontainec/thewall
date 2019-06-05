@@ -4,12 +4,16 @@ const { assert } = require('chai');
 const config = require('../../config');
 const DatabaseManager = require('../../models/DatabaseManager');
 const AccessList = require('../../models/AccessList');
-const TheWall = require('../..')(config);
+const TheWallConstructor = require('../..');
+
+let TheWall;
 
 
 describe('Index.hasAccess', () => { // eslint-disable-line no-undef, max-lines-per-function
 
   before(async () => { // eslint-disable-line no-undef
+    AccessList.flush();
+    TheWall = TheWallConstructor(config);
     await DatabaseManager.flushAccess();
     await DatabaseManager.addAccess({ user_id: 1, role: 'venue', filter: '10' });
     await DatabaseManager.addAccess({ user_id: 2, role: 'admin' });
@@ -31,8 +35,10 @@ describe('Index.hasAccess', () => { // eslint-disable-line no-undef, max-lines-p
   });
 
   it('no restriction set', async () => { // eslint-disable-line no-undef
+    const { admin } = AccessList.get();
     delete AccessList.get().admin;
     const hasAccess = await TheWall.hasAccess(10, '/open/to/everyone', 'get');
+    AccessList.get().admin = admin;
     assert.isTrue(hasAccess);
   });
 
