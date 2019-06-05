@@ -95,13 +95,14 @@ const filterFromEntry = (entry) => {
 };
 
 const pathFromEntry = (entry) => {
+  const path = Array.isArray(entry) ? entry[0] : entry;
   return Array.isArray(entry) ? entry[0] : entry;
 };
 
 const verbFromEntry = (entry) => {
   const hasVerbSpecification = Array.isArray(entry) && entry.length > 2 && entry[2];
   if (!hasVerbSpecification) return 'get';
-  return entry[2];
+  return entry[2].toLowerCase();
 };
 
 const publicMethods = {
