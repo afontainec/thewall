@@ -1,10 +1,13 @@
 const DatabaseManager = require('./DatabaseManager');
 
 const hasAccess = async (userId, url, entries) => {
+  console.log('entries', userId);
   const validCombinations = getCombinations(url, entries);
+  console.log(validCombinations);
   // if its not restricted then its open to everyone
   if (validCombinations.length === 0) return true;
   const query = buildQuery(userId, validCombinations);
+  console.log(query.toString());
   const a = await query;
   return a.length > 0;
 };
