@@ -20,6 +20,8 @@ module.exports = function initialize(config) {
 
 
 const hasAccess = async (userId, url, verb) => {
+  if (url) url = url.toLowerCase();
+  if (verb) verb = verb.toLowerCase();
   const entries = AccessList.find(url, verb);
   return Guard.canItGoThrough(userId, url, entries);
 };

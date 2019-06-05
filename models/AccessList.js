@@ -91,17 +91,18 @@ const parseEntry = (role, entry) => {
 const filterFromEntry = (entry) => {
   const hasFilterSpecification = Array.isArray(entry) && entry.length > 1 && entry[1];
   if (!hasFilterSpecification) return undefined;
-  return entry[1];
+  return entry[1].toLowerCase();
 };
 
 const pathFromEntry = (entry) => {
-  return Array.isArray(entry) ? entry[0] : entry;
+  const p = Array.isArray(entry) ? entry[0] : entry;
+  return p ? p.toLowerCase() : p;
 };
 
 const verbFromEntry = (entry) => {
   const hasVerbSpecification = Array.isArray(entry) && entry.length > 2 && entry[2];
   if (!hasVerbSpecification) return 'get';
-  return entry[2];
+  return entry[2].toLowerCase();
 };
 
 const publicMethods = {

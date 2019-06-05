@@ -1,7 +1,7 @@
 process.env.NODE_ENV = 'test';
 
 const { assert } = require('chai');
-const AccessList = require('../models/AccessList');
+const AccessList = require('../../models/AccessList');
 
 
 describe('verbFromEntry', () => { // eslint-disable-line no-undef, max-lines-per-function
@@ -26,6 +26,12 @@ describe('verbFromEntry', () => { // eslint-disable-line no-undef, max-lines-per
 
   it('entry is array and entry[2] is defined', (done) => { // eslint-disable-line no-undef
     const verb = AccessList.verbFromEntry(['/path/to', '', 'put']);
+    assert.deepEqual(verb, 'put');
+    done();
+  });
+
+  it('verb is in uppercase', (done) => { // eslint-disable-line no-undef
+    const verb = AccessList.verbFromEntry(['/path/to', '', 'PUT']);
     assert.deepEqual(verb, 'put');
     done();
   });
