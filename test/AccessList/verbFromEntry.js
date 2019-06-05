@@ -8,19 +8,19 @@ describe('verbFromEntry', () => { // eslint-disable-line no-undef, max-lines-per
 
   it('entry is not array', (done) => { // eslint-disable-line no-undef
     const verb = AccessList.verbFromEntry('/path/to');
-    assert.deepEqual(verb, 'get');
+    assert.deepEqual(verb, 'all');
     done();
   });
 
   it('entry is array but is too short', (done) => { // eslint-disable-line no-undef
     const verb = AccessList.verbFromEntry([]);
-    assert.deepEqual(verb, 'get');
+    assert.deepEqual(verb, 'all');
     done();
   });
 
   it('entry is array but is entry[2] is false', (done) => { // eslint-disable-line no-undef
     const verb = AccessList.verbFromEntry(['/path/to', '', false]);
-    assert.deepEqual(verb, 'get');
+    assert.deepEqual(verb, 'all');
     done();
   });
 
