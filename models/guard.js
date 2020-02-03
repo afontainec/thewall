@@ -53,12 +53,17 @@ const buildCombination = (url, role, entry) => {
   return combination;
 };
 
+
 const extractFilter = (url, templateUrl, filter) => {
   if (!url || !templateUrl) return null;
   const divider = `:${filter}`;
   const parts = templateUrl.split(divider);
   if (parts.length !== 2) return null;
-  const extractor = `^${parts[0]}(.*)${parts[1]}$`;
+  let extractor = `^${parts[0]}(.*)${parts[1]}$`;
+  const replaceParam = new RegExp('\\/:[^\\/]*', 'g');
+  const replaceAsterisk = new RegExp('\\/\\*', 'g');
+  extractor = extractor.replace(replaceParam, '\\/[^\\/]*');
+  extractor = extractor.replace(replaceAsterisk, '\\/.*');
   const regex = new RegExp(extractor);
   const result = url.match(regex);
   return result && result[1] ? result[1] : null;
