@@ -1,6 +1,6 @@
 {
   "name": "thewall",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Protect you app. Protect your routes.",
   "main": "index.js",
   "scripts": {
