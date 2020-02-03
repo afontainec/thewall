@@ -21,7 +21,7 @@
     "codemaster": "0.0.10",
     "commander": "^2.19.0",
     "express": "^4.16.4",
-    "knex": "^0.15.2",
+    "knex": "^0.19.5",
     "pg": "^7.5.0"
   },
   "devDependencies": {
