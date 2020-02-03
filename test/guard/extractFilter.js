@@ -42,5 +42,11 @@ describe('Extract Filter', () => { // eslint-disable-line no-undef, max-lines-pe
     done();
   });
 
+  it('url tempate contains filter and other params, first filter, then other param', (done) => { // eslint-disable-line no-undef
+    const filtering = Guard.extractFilter('/test/3/place/43/find', '/test/:id/place/:place_id/find', 'id');
+    assert.equal(filtering, 3);
+    done();
+  });
+
 
 });
