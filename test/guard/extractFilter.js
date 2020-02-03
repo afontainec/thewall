@@ -66,5 +66,11 @@ describe('Extract Filter', () => { // eslint-disable-line no-undef, max-lines-pe
     done();
   });
 
+  it('url tempate contains filter and * more comlex', (done) => { // eslint-disable-line no-undef
+    const filtering = Guard.extractFilter('/test/3/place/43/get/device/20/all/plase/pass/this/test/first/try', '/test/:id/place/:place_id/get/device/:device_id/all/*', 'place_id');
+    assert.equal(filtering, 43);
+    done();
+  });
+
 
 });
