@@ -65,7 +65,6 @@ const find = (url, verb) => {
 const findInRole = (role, url, verb) => {
   if (!list || !list[role]) return null;
   const array = list[role] || [];
-  // orderByFilterDesc(array);
   for (let i = 0; i < array.length; i++) {
     const urlIsCorrect = urlMatches(array[i].path, url);
     const correctVerb = (verb === array[i].verb || array[i].verb === ALL_VERBS);
