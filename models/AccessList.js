@@ -21,8 +21,21 @@ const flush = () => {
 
 const init = (input) => {
   if (list) return;
+  insertSlashIfNeeded(input);
   initSort(input);
   setAccessList(input);
+};
+
+const insertSlashIfNeeded = (input) => {
+  input = input || {};
+  const roleKeys = Object.keys(input);
+  for (let i = 0; i < roleKeys.length; i++) {
+    const array = input[roleKeys[i]];
+    for (let j = 0; j < array.length; j++) {
+      let stringRoute = Array.isArray(array[j]) ? array[j][0] : array[j];
+      if (!stringRoute.startsWith('/')) stringRoute = `/${stringRoute}`;
+    }
+  }
 };
 
 const initSort = (input) => {
