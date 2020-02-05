@@ -31,7 +31,7 @@ const expected = {
 
 describe('AccessList.js initSort', () => { // eslint-disable-line no-undef, max-lines-per-function
 
-  it('roles is undefined', (done) => { // eslint-disable-line no-undef
+  it('does correct sort (by filter desc)', (done) => { // eslint-disable-line no-undef
     AccessList.flush();
     AccessList.initSort(input);
     assert.deepEqual(input, expected);

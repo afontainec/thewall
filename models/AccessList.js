@@ -32,8 +32,9 @@ const insertSlashIfNeeded = (input) => {
   for (let i = 0; i < roleKeys.length; i++) {
     const array = input[roleKeys[i]];
     for (let j = 0; j < array.length; j++) {
-      let stringRoute = Array.isArray(array[j]) ? array[j][0] : array[j];
-      if (!stringRoute.startsWith('/')) stringRoute = `/${stringRoute}`;
+      if (Array.isArray(array[j])) {
+        if (!array[j][0].startsWith('/')) array[j][0] = `/${array[j][0]}`;
+      } else if (!array[j].startsWith('/')) array[j] = `/${array[j]}`;
     }
   }
 };
@@ -158,6 +159,7 @@ if (process.env.NODE_ENV === 'test') {
   publicMethods.urlMatches = urlMatches;
   publicMethods.verbFromEntry = verbFromEntry;
   publicMethods.initSort = initSort;
+  publicMethods.insertSlashIfNeeded = insertSlashIfNeeded;
 }
 
 
