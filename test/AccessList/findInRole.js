@@ -55,6 +55,16 @@ describe('find in role', () => { // eslint-disable-line no-undef, max-lines-per-
     assert.equal(entry.path, '/route/obsolute/without/filter');
     done();
   });
-
-
+  it('filter and obsolute route does not overlap diferent order in Role List', (done) => { // eslint-disable-line no-undef
+    AccessList.setAccessList({
+      role: [
+        ['/route/:some_id', 'some_id', 'get'],
+        '/route/obsolute/without/filter',
+        '/path/to',
+      ],
+    });
+    const entry = AccessList.findInRole('role', '/route/obsolute/without/filter', 'get');
+    assert.equal(entry.path, '/route/obsolute/without/filter');
+    done();
+  });
 });
