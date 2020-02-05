@@ -26,8 +26,9 @@ const init = (input) => {
 };
 
 const initSort = (input) => {
+  input = input || {};
   const roleKeys = Object.keys(input);
-  for (let i = 0; i < roles.length; i++) {
+  for (let i = 0; i < roleKeys.length; i++) {
     input[roleKeys[i]].sort((a) => {
       const value = Array.isArray(a) ? a[0] : a;
       return value.includes('/:') ? 1 : -1;
