@@ -5,28 +5,25 @@ const AccessList = require('../../models/AccessList');
 
 const input = {
   a: [
-    ['/route/:param', 'param', 'get'],
-    'route/other/show',
-    ['/api/:id/test', 'id', 'get'],
+    ['/aaaaa/:param', 'param', 'get'],
+    '/bbbbb/other/show',
+    ['/ccccc/:id/test', 'id', 'get'],
   ],
   b: [
-    ['/b/:id/show'],
+    ['/a/:id/show'],
     '/b',
-    '/b/b',
+    '/c/b',
   ],
 };
 
 const expected = {
-  a: [
-    'route/other/show',
-    ['/api/:id/test', 'id', 'get'],
-    ['/route/:param', 'param', 'get'],
-  ],
-  b: [
-    '/b',
-    '/b/b',
-    ['/b/:id/show'],
-  ],
+  a:
+  ['/bbbbb/other/show',
+    ['/ccccc/:id/test', 'id', 'get'],
+    ['/aaaaa/:param', 'param', 'get']],
+  b: ['/b',
+    '/c/b',
+    ['/a/:id/show']],
 };
 
 describe('AccessList.js initSort', () => { // eslint-disable-line no-undef, max-lines-per-function
