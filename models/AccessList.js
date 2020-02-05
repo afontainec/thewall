@@ -74,12 +74,6 @@ const findInRole = (role, url, verb) => {
   return null;
 };
 
-const orderByFilterDesc = (array) => { // (array: Array<Object: {path, verb, filter}>)
-  array.sort((a) => {
-    return a.path.includes('/:') ? 1 : -1;
-  });
-};
-
 // /////////URL MATCHES
 
 const buildRegex = (input) => {
