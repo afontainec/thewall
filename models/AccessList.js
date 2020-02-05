@@ -54,12 +54,19 @@ const find = (url, verb) => {
 const findInRole = (role, url, verb) => {
   if (!list || !list[role]) return null;
   const array = list[role] || [];
+  orderByFilterDesc(array);
   for (let i = 0; i < array.length; i++) {
     const urlIsCorrect = urlMatches(array[i].path, url);
     const correctVerb = (verb === array[i].verb || array[i].verb === ALL_VERBS);
     if (urlIsCorrect && correctVerb) return array[i];
   }
   return null;
+};
+
+const orderByFilterDesc = (array) => { // (array: Array<Object: {path, verb, filter}>)
+  array.sort((a, b) => {
+    return a.path.includes('/:') ? 1 : -1;
+  });
 };
 
 // /////////URL MATCHES
@@ -69,7 +76,7 @@ const buildRegex = (input) => {
   const parts = input.split('/');
   let comp = '^';
   for (let i = 0; i < parts.length; i++) {
-    if (parts[i].startsWith(':')) comp += '.*/';
+    if (parts[i].startsWith(':')) comp += '[^\\/]*/';
     else if (parts[i] === '*') comp += '.*/';
     else comp += `${parts[i]}/`;
   }
