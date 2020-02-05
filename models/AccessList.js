@@ -144,6 +144,7 @@ if (process.env.NODE_ENV === 'test') {
   publicMethods.setAccessList = setAccessList;
   publicMethods.urlMatches = urlMatches;
   publicMethods.verbFromEntry = verbFromEntry;
+  publicMethods.initSort = initSort;
 }
 
 
