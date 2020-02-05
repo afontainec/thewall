@@ -1,14 +1,14 @@
 process.env.NODE_ENV = 'test';
 
 const { assert } = require('chai');
-const AccessList = require('../models/AccessList');
+const AccessList = require('../../models/AccessList');
 
 
 describe('buildRegex', () => { // eslint-disable-line no-undef, max-lines-per-function
 
   it('has :', (done) => { // eslint-disable-line no-undef
     const comparison = AccessList.buildRegex('/places/:id/metrics');
-    assert.equal(comparison, '^/places/.*/metrics/$');
+    assert.equal(comparison, '^/places/[^\\/]*/metrics/$');
     done();
   });
 
