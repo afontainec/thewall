@@ -21,7 +21,18 @@ const flush = () => {
 
 const init = (input) => {
   if (list) return;
+  initSort(input);
   setAccessList(input);
+};
+
+const initSort = (input) => {
+  const roleKeys = Object.keys(input);
+  for (let i = 0; i < roles.length; i++) {
+    input[roleKeys[i]].sort((a) => {
+      const value = Array.isArray(a) ? a[0] : a;
+      return value.includes('/:') ? 1 : -1;
+    });
+  }
 };
 
 const setAccessList = (input) => {
@@ -54,7 +65,7 @@ const find = (url, verb) => {
 const findInRole = (role, url, verb) => {
   if (!list || !list[role]) return null;
   const array = list[role] || [];
-  orderByFilterDesc(array);
+  // orderByFilterDesc(array);
   for (let i = 0; i < array.length; i++) {
     const urlIsCorrect = urlMatches(array[i].path, url);
     const correctVerb = (verb === array[i].verb || array[i].verb === ALL_VERBS);
@@ -64,7 +75,7 @@ const findInRole = (role, url, verb) => {
 };
 
 const orderByFilterDesc = (array) => { // (array: Array<Object: {path, verb, filter}>)
-  array.sort((a, b) => {
+  array.sort((a) => {
     return a.path.includes('/:') ? 1 : -1;
   });
 };
