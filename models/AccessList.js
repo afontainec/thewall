@@ -21,7 +21,33 @@ const flush = () => {
 
 const init = (input) => {
   if (list) return;
+  insertSlashIfNeeded(input);
+  initSort(input);
   setAccessList(input);
+};
+
+const insertSlashIfNeeded = (input) => {
+  input = input || {};
+  const roleKeys = Object.keys(input);
+  for (let i = 0; i < roleKeys.length; i++) {
+    const array = input[roleKeys[i]];
+    for (let j = 0; j < array.length; j++) {
+      if (Array.isArray(array[j])) {
+        if (!array[j][0].startsWith('/')) array[j][0] = `/${array[j][0]}`;
+      } else if (!array[j].startsWith('/')) array[j] = `/${array[j]}`;
+    }
+  }
+};
+
+const initSort = (input) => {
+  input = input || {};
+  const roleKeys = Object.keys(input);
+  for (let i = 0; i < roleKeys.length; i++) {
+    input[roleKeys[i]].sort((a) => {
+      const value = Array.isArray(a) ? a[0] : a;
+      return value.includes('/:') ? 1 : -1;
+    });
+  }
 };
 
 const setAccessList = (input) => {
@@ -69,7 +95,7 @@ const buildRegex = (input) => {
   const parts = input.split('/');
   let comp = '^';
   for (let i = 0; i < parts.length; i++) {
-    if (parts[i].startsWith(':')) comp += '.*/';
+    if (parts[i].startsWith(':')) comp += '[^\\/]*/';
     else if (parts[i] === '*') comp += '.*/';
     else comp += `${parts[i]}/`;
   }
@@ -132,6 +158,8 @@ if (process.env.NODE_ENV === 'test') {
   publicMethods.setAccessList = setAccessList;
   publicMethods.urlMatches = urlMatches;
   publicMethods.verbFromEntry = verbFromEntry;
+  publicMethods.initSort = initSort;
+  publicMethods.insertSlashIfNeeded = insertSlashIfNeeded;
 }
 
 
