@@ -6,7 +6,8 @@
   "scripts": {
     "test": "nyc mocha --recursive --timeout 20000 test/ --exit",
     "coverage": "nyc check-coverage --statements 90 --branches 85 --functions 90 --lines 90",
-    "linter": "eslint -c .eslintrc.js ."
+    "linter": "eslint -c .eslintrc.js .",
+    "coveralls": "nyc report --reporter=text-lcov | coveralls",
   },
   "repository": {
     "type": "git",
@@ -26,7 +27,7 @@
   },
   "devDependencies": {
     "chai": "^4.2.0",
-    "coveralls": "^3.0.3",
+    "coveralls": "^3.0.9",
     "eslint": "^5.15.3",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-plugin-import": "^2.16.0",
