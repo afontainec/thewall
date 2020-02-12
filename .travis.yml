@@ -12,9 +12,16 @@ script:
   - npm run test
   - npm run coverage
   - npm run linter
-notifications:
-  email:
-    recipients:
-      - afontaine@uc.cl
-    on_success: never
-    on_failure: always
+deploy:
+  - provider: script
+    skip_cleanup: true
+    script: sh .travis/pu.sh
+    on:
+      branch: master
+      tags: false
+  - provider: npm
+    email: antonio.fontainecorrea@gmail.com
+    api_key: $NPM_TOKEN
+    edge: true
+    on:
+      branch: master
