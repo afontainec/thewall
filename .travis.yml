@@ -28,8 +28,3 @@ deploy:
     edge: true
     on:
       branch: master
-  - provider: script
-    script: sh .travis/docs.sh
-    on:
-      branch: master
-      tags: false

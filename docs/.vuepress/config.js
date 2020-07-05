@@ -1,6 +1,6 @@
 module.exports = {
   title: 'ApañoTuPyme Manual de Inscripción',
-  base: '/thewall/',
+  base: '/<REPO>/',
   themeConfig: {
     nav: [
       { text: 'ApañoTuPyme', link: 'https://apañotupyme.cl' },
