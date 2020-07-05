@@ -1,0 +1,39 @@
+language: node_js
+node_js:
+ - "10.15.3"
+addons:
+  postgresql: "9.5"
+before_script:
+  - psql -c 'create database thewall_test;' -U postgres
+  - psql -c 'create database thewall;' -U postgres
+  - npm i knex -g
+  - npm install
+  - npm install -g vuepress
+script:
+  - npm run test
+  - npm run coverage
+  - npm run linter
+after_success:
+  - npm run coveralls
+deploy:
+  - provider: script
+    skip_cleanup: true
+    script: sh .travis/pu.sh
+    on:
+      branch: master
+      tags: false
+  - provider: npm
+    email: antonio.fontainecorrea@gmail.com
+    api_key: $NPM_TOKEN
+    edge: true
+    on:
+      branch: master
+  - provider: pages
+    skip-cleanup: true
+    local_dir: docs/.vuepress/dist
+    github-token: $GITHUB_API_KEY  # Set in the settings page of your repository, as a secure variable
+    repo: afontainec/thewall
+    keep-history: true
+    target-branch: master
+    on:
+        branch: master
