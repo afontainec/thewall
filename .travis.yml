@@ -28,12 +28,8 @@ deploy:
     edge: true
     on:
       branch: master
-  - provider: pages
-    skip-cleanup: true
-    local_dir: docs/.vuepress/dist
-    github-token: $GITHUB_API_KEY  # Set in the settings page of your repository, as a secure variable
-    repo: afontainec/thewall
-    keep-history: true
-    target-branch: master
+  - provider: script
+    script: sh .travis/docs.sh
     on:
-        branch: master
+      branch: master
+      tags: false
