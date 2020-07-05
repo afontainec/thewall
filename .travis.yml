@@ -8,10 +8,12 @@ before_script:
   - psql -c 'create database thewall;' -U postgres
   - npm i knex -g
   - npm install
+  - npm install -g vuepress
 script:
   - npm run test
   - npm run coverage
   - npm run linter
+  - npm run docs:build 
 after_success:
   - npm run coveralls
 deploy:
@@ -27,3 +29,12 @@ deploy:
     edge: true
     on:
       branch: master
+  - provider: pages
+    skip-cleanup: true
+    local_dir: docs/.vuepress/dist
+    github-token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
+    repo: afontainec/thewall
+    keep-history: true
+    target-branch: master
+    on:
+        branch: master
