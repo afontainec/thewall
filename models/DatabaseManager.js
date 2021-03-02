@@ -38,7 +38,7 @@ const table = () => {
 // CRUD ACCESS
 
 const addAccess = async (access) => {
-  return access ? knex(DEFAULT_NAME).insert(access) : true;
+  return access ? knex(DEFAULT_NAME).insert(access).returning('*') : true;
 };
 
 const deleteAccess = async (access) => {
