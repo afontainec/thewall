@@ -34,5 +34,6 @@ const addAccess = async (userId, role, filter) => {
     role,
   };
   if (filter) access.filter = filter;
-  return DatabaseManager.addAccess(access);
+  const [result] = await DatabaseManager.addAccess(access);
+  return result;
 };
