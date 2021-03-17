@@ -4,6 +4,10 @@ const ALL_VERBS = 'all';
 
 class AccessList {
 
+  constructor(input) {
+    this.init(input);
+  }
+
   get() {
     return this.list;
   }
