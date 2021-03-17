@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "nyc mocha --recursive --timeout 20000 test/ --exit",
-    "coverage": "nyc check-coverage --statements 90 --branches 85 --functions 90 --lines 90",
+    "coverage": "nyc check-coverage --statements 95 --branches 95 --functions 95 --lines 95",
     "linter": "eslint -c .eslintrc.js .",
     "coveralls": "nyc report --reporter=text-lcov | coveralls",
     "docs:dev": "vuepress dev docs",
