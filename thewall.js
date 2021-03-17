@@ -12,10 +12,19 @@ class TheWall {
   }
 
   initialize() {
-    this.findAccess = this.databaseManager.findAccess;
-    this.updateAccess = this.databaseManager.updateAccess;
-    this.deleteAccess = this.databaseManager.deleteAccess;
     this.getRoles = this.accessList.getRoles;
+  }
+
+  findAccess(...params) {
+    return this.databaseManager.findAccess(...params);
+  }
+
+  updateAccess(...params) {
+    return this.databaseManager.updateAccess(...params);
+  }
+
+  deleteAccess(...params) {
+    return this.databaseManager.deleteAccess(...params);
   }
 
 
