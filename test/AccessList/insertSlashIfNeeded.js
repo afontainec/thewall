@@ -3,6 +3,8 @@ process.env.NODE_ENV = 'test';
 const { assert } = require('chai');
 const AccessList = require('../../models/AccessList');
 
+const accessList = new AccessList();
+
 const input = {
   a: [
     ['route/:param', 'param', 'get'],
@@ -27,11 +29,11 @@ const expected = {
     '/b/b'],
 };
 
-describe('AccessList.js insertSlashIfNeeded', () => { // eslint-disable-line no-undef, max-lines-per-function
+describe('accessList.js insertSlashIfNeeded', () => { // eslint-disable-line no-undef, max-lines-per-function
 
   it('work as expected', (done) => { // eslint-disable-line no-undef
-    AccessList.flush();
-    AccessList.insertSlashIfNeeded(input);
+    accessList.flush();
+    accessList.insertSlashIfNeeded(input);
     assert.deepEqual(input, expected);
     done();
   });
