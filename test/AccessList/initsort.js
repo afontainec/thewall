@@ -3,6 +3,8 @@ process.env.NODE_ENV = 'test';
 const { assert } = require('chai');
 const AccessList = require('../../models/AccessList');
 
+const accessList = new AccessList();
+
 const input = {
   a: [
     ['/aaaaa/:param', 'param', 'get'],
@@ -26,11 +28,11 @@ const input = {
 //     ['/a/:id/show']],
 // };
 
-describe('AccessList.js initSort', () => { // eslint-disable-line no-undef, max-lines-per-function
+describe('accessList.js initSort', () => { // eslint-disable-line no-undef, max-lines-per-function
 
   it('does correct sort (by filter desc)', (done) => { // eslint-disable-line no-undef
-    AccessList.flush();
-    AccessList.initSort(input);
+    accessList.flush();
+    accessList.initSort(input);
     assert.isFalse(input.a[0].includes('/:'));
     assert.isFalse(input.b[0].includes('/:'));
     assert.isFalse(input.b[1].includes('/:'));

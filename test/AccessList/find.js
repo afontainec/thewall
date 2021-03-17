@@ -3,6 +3,8 @@ process.env.NODE_ENV = 'test';
 const { assert } = require('chai');
 const AccessList = require('../../models/AccessList');
 
+const accessList = new AccessList();
+
 const expected = {
   role: {
     path: '/path/to',
@@ -16,23 +18,23 @@ const expected = {
   },
 };
 
-describe('AccessList.find', () => { // eslint-disable-line no-undef, max-lines-per-function
+describe('accessList.find', () => { // eslint-disable-line no-undef, max-lines-per-function
 
   it('list is null', (done) => { // eslint-disable-line no-undef
-    AccessList.flush();
-    const entry = AccessList.find('/path/to', 'get');
+    accessList.flush();
+    const entry = accessList.find('/path/to', 'get');
     assert.deepEqual(entry, {});
     done();
   });
 
   it('Happy path', (done) => { // eslint-disable-line no-undef
-    AccessList.flush();
-    AccessList.setAccessList({
+    accessList.flush();
+    accessList.setAccessList({
       role: ['other', ['/path/to', undefined, 'put'], '/path/to'],
       other: '/*',
       no: '/no/no',
     });
-    const access = AccessList.find('/path/to', 'get');
+    const access = accessList.find('/path/to', 'get');
     assert.deepEqual(access, expected);
     done();
   });
