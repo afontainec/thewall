@@ -5,17 +5,18 @@ const config = require('../../config');
 const DatabaseManager = require('../../models/DatabaseManager');
 const TheWall = require('../..')(config);
 
+let databaseManager;
 
 describe('addAccess', () => { // eslint-disable-line no-undef, max-lines-per-function
 
   before(async () => { // eslint-disable-line no-undef
-    await DatabaseManager.init(config);
-    await DatabaseManager.flushAccess();
+    databaseManager = await new DatabaseManager(config);
+    await databaseManager.flushAccess();
   });
 
   it('it is added', async () => { // eslint-disable-line no-undef
     await TheWall.addAccess(1, 'test_role', 'filter');
-    const results = await DatabaseManager.table().select('*').where('user_id', 1);
+    const results = await databaseManager.table().select('*').where('user_id', 1);
     assert.equal(results.length, 1);
     assert.equal(results[0].role, 'test_role');
     assert.equal(results[0].filter, 'filter');
@@ -23,7 +24,7 @@ describe('addAccess', () => { // eslint-disable-line no-undef, max-lines-per-fun
 
   it('it is added, no filter', async () => { // eslint-disable-line no-undef
     await TheWall.addAccess(2, 'test_role');
-    const results = await DatabaseManager.table().select('*').where('user_id', 2);
+    const results = await databaseManager.table().select('*').where('user_id', 2);
     assert.equal(results.length, 1);
     assert.equal(results[0].role, 'test_role');
     assert.equal(results[0].filter, null);

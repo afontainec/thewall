@@ -3,20 +3,20 @@ process.env.NODE_ENV = 'test';
 const { assert } = require('chai');
 const config = require('../../config');
 const DatabaseManager = require('../../models/DatabaseManager');
-const AccessList = require('../../models/AccessList');
 const TheWallConstructor = require('../..');
 
 let TheWall;
+let databaseManager;
 
 
 describe('Index.hasAccess', () => { // eslint-disable-line no-undef, max-lines-per-function
 
   before(async () => { // eslint-disable-line no-undef
-    AccessList.flush();
+    databaseManager = await new DatabaseManager(config);
     TheWall = TheWallConstructor(config);
-    await DatabaseManager.flushAccess();
-    await DatabaseManager.addAccess({ user_id: 1, role: 'venue', filter: '10' });
-    await DatabaseManager.addAccess({ user_id: 2, role: 'admin' });
+    await databaseManager.flushAccess();
+    await databaseManager.addAccess({ user_id: 1, role: 'venue', filter: '10' });
+    await databaseManager.addAccess({ user_id: 2, role: 'admin' });
   });
 
   it('has access', async () => { // eslint-disable-line no-undef
@@ -35,10 +35,10 @@ describe('Index.hasAccess', () => { // eslint-disable-line no-undef, max-lines-p
   });
 
   it('no restriction set', async () => { // eslint-disable-line no-undef
-    const { admin } = AccessList.get();
-    delete AccessList.get().admin;
+    const { admin } = TheWall.accessList.get();
+    delete TheWall.accessList.get().admin;
     const hasAccess = await TheWall.hasAccess(10, '/open/to/everyone', 'get');
-    AccessList.get().admin = admin;
+    TheWall.accessList.get().admin = admin;
     assert.isTrue(hasAccess);
   });
 
