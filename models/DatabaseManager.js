@@ -29,7 +29,7 @@ class DatabaseManager {
   // CRUD ACCESS
 
   async addAccess(access) {
-    return access ? this.knex(this.DEFAULT_NAME).insert(access) : true;
+    return access ? this.knex(this.DEFAULT_NAME).insert(access).returning('*') : true;
   }
 
   async deleteAccess(access) {
