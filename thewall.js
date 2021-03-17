@@ -33,7 +33,8 @@ class TheWall {
       role,
     };
     if (filter) access.filter = filter;
-    return this.databaseManager.addAccess(access);
+    const [result] = await this.databaseManager.addAccess(access);
+    return result;
   }
 }
 
