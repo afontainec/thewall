@@ -14,7 +14,8 @@ module.exports = {
     "strict": 1,
     "max-lines-per-function": [1, 20],
     "no-use-before-define": 0,
-    "padded-blocks": 0
+    "padded-blocks": 0,
+    "class-methods-use-this": 0
 
   },
   "globals": {
