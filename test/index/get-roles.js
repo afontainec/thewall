@@ -10,12 +10,12 @@ let databaseManager;
 
 describe('getRoles', () => { // eslint-disable-line max-lines-per-function
 
-  before(async () => { // eslint-disable-line
+  before(async () => {
     databaseManager = await new DatabaseManager(config);
     await databaseManager.flushAccess();
   });
 
-  it('happy path', async () => { // eslint-disable-line
+  it('happy path', async () => {
     const roles = TheWall.getRoles();
     const expected = ['admin', 'venue', 'sponsorSubAdmin', 'advertiser'];
     assert.deepEqual(roles, expected);
