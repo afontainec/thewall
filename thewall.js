@@ -8,11 +8,10 @@ class TheWall {
     this.databaseManager = new DatabaseManager(config);
     this.accessList = new AccessList(config.access);
     this.guard = new Guard(this.databaseManager);
-    this.initialize(config);
   }
 
-  initialize() {
-    this.getRoles = this.accessList.getRoles;
+  getRoles() {
+    return this.accessList.getRoles();
   }
 
   findAccess(...params) {
